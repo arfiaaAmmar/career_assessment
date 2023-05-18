@@ -1,5 +1,0 @@
-fastapi
-uvicorn
-aiofiles
-fastapi-sqlalchemy
-pydantic[email]

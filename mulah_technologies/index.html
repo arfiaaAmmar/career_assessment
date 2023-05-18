@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV to Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <input type="file" id="csvFile" accept=".csv">
+  <div id="tableContainer"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alpha</td>
+        <td id=""></td>
+      </tr>
+      <tr>
+        <td>Category 2</td>
+        <td>Value 2</td>
+      </tr>
+      <tr>
+        <td>Category 3</td>
+        <td>Value 3</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+  <script src="script.js"></script>
+</body>
+</html>
