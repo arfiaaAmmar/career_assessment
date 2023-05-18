@@ -28,9 +28,9 @@ const App: React.FC = () => {
 
         // Calculate category values
         const categoryValues: { [key: string]: number } = {
-          Alpha: data['A1'] + data['A3'],
-          Beta: data['A5'] + data['A7'],
-          Charlie: data['A9'] + data['A11'],
+          Alpha: data['A5'] + data['A20'],
+          Beta: data['A15'] / data['A7'],
+          Charlie: data['A13'] * data['A12'],
         };
 
         setCategoryData(categoryValues);
