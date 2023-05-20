@@ -3,6 +3,7 @@ import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
+import Register from "./pages/Register";
 
 export type UserType = {
   username: string;
@@ -36,6 +37,7 @@ function App() {
             )
           }
         />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );

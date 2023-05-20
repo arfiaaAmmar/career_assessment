@@ -68,7 +68,7 @@ const Login = ({ onLogin }: LoginProps) => {
           backgroundColor: "#ed2124",
         }}
       >
-        <Link to="/home">Login</Link>
+        Login
       </Button>
       <Grid container>
         <Grid item xs>

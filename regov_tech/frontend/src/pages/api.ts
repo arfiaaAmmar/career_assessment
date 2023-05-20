@@ -2,7 +2,6 @@ const API_BASE_URL = "http://localhost:8888";
 
 export const registerUser = async (
   name: string,
-  email: string,
   password: string
 ) => {
   try {
@@ -11,7 +10,7 @@ export const registerUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, password }),
     });
 
     if (!response.ok) {
