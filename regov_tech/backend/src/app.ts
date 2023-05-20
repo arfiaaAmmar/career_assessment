@@ -38,6 +38,11 @@ const User = mongoose.model("User", userSchema);
 
 app.use(express.json());
 
+//Test to see if server works
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello, Express.js!')
+})
+
 //Register user
 app.post("/register", async (req: Request, res: Response) => {
   const { username, password } = req.body;
