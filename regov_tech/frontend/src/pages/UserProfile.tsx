@@ -1,8 +1,16 @@
 
-const UserProfile = () => {
-  return (
-    <div>UserProfile</div>
-  )
+interface UserProfileProps {
+  onLogout: () => void
 }
 
-export default UserProfile
+const UserProfile = ({onLogout}:UserProfileProps) => {  
+
+  return (
+    <>
+      <div>UserProfile</div>
+      <button onClick={onLogout}>Logout</button>
+    </>
+  );
+};
+
+export default UserProfile;

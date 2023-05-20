@@ -1,32 +1,42 @@
 import { useState } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import UserProfile from "./pages/UserProfile";
 
 export type UserType = {
-  username: string,
-  password: string,
-}
+  username: string;
+  password: string;
+  email: string;
+};
 
 function App() {
-  const [logged, setLogged] = useState(false);
-  const [user, setUser] = useState<UserType>({
-    username: "",
-    password: ""
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
-      {logged ? (
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/userprofile" element={<UserProfile />} />
-        </Routes>
-      ) : (
-        <Login setLogged={setLogged} user={user} setUser={setUser} />
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <UserProfile onLogout={() => setIsLoggedIn(false)} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/" replace />
+            ) : (
+              <Login onLogin={() => setIsLoggedIn(true)} />
+            )
+          }
+        />
+      </Routes>
     </>
   );
 }
