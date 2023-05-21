@@ -41,12 +41,12 @@ const UserProfile = () => {
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Email: setgse
+        Email: This will be dynamic (otw)
       </Typography>
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Username: sergserg
+        Username: This will be dynamic. (otw)
       </Typography>
       <Button sx={{ marginTop: "2rem" }} onClick={() => setIsLoggedIn(false)}>
         Logout
