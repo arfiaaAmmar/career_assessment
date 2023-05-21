@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const API_BASE_URL = "http://localhost:8888";
 
 export const registerUser = async (
+  email: string,
   username: string,
   password: string
 ) => {
@@ -10,7 +12,7 @@ export const registerUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, username, password }),
     });
 
     if (!response.ok) {
@@ -24,7 +26,7 @@ export const registerUser = async (
   }
 };
 
-export const loginUser = async (username: string, password: string) => {
+export const loginUser = async (username: string, password: string, rememberMe: boolean) => {
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
       method: "POST",
@@ -34,13 +36,45 @@ export const loginUser = async (username: string, password: string) => {
       body: JSON.stringify({ username, password }),
     });
 
+    const data = await response.json()
+
     if (!response.ok) {
-      const errorData: { message: string } = await response.json();
+      const errorData: { message: string } = data;
       throw new Error(errorData.message);
     }
 
-    return response.json();
+    if (rememberMe) {
+      localStorage.setItem('userSession', JSON.stringify(data))
+    }
+
+    return data;
   } catch (error) {
     throw (error as Error).message;
   }
 };
+
+export const getUser = async (username:string): Promise<any> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/user/${username}`);
+    const data = await response.json()
+
+    if (!response.ok) {
+      const error = data.error || 'An error occured'
+      throw new Error(error);
+    }
+
+    return response.json();
+  } catch (error: any) {
+    throw new Error('An error occurred');
+  }
+}
+
+export const getSavedUserSession = (): any => {
+  const userSession = localStorage.getItem('userSession')
+
+  if(userSession){
+    return JSON.parse(userSession)
+  }
+
+  return null
+}

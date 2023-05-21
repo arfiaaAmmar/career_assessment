@@ -11,18 +11,24 @@ import { loginUser } from "./api";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [error, setError] = useState("");
-  const { setIsLoggedIn} = useContext(AuthContext)
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const handleLogin = async () => {
+    if (username == "" || password == "") {
+      setError("Please enter username and password");
+      return;
+    }
     try {
-      const response = await loginUser(username, password);
+      const response = await loginUser(username, password, rememberMe);
       console.log(response);
-      setIsLoggedIn(true)
-    } catch (error) {
-      setError(response);
+      setIsLoggedIn(true);
+    } catch (error: any) {
+      console.error("Error logging in:", error);
+      setError(error);
     }
   };
 
@@ -53,7 +59,14 @@ const Login = () => {
         autoComplete="current-password"
       />
       <FormControlLabel
-        control={<Checkbox value="remember" color="primary" />}
+        control={
+          <Checkbox
+            value="remember"
+            color="primary"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
+        }
         label="Remember me"
       />
       <Button
@@ -72,7 +85,7 @@ const Login = () => {
           <Link to="/register">Registration</Link>
         </Grid>
       </Grid>
-      {error && <Typography sx={{ color: "red"}} >{error}</Typography> }
+      {error && <Typography sx={{ color: "red" }}>{error}</Typography>}
     </div>
   );
 };

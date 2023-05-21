@@ -1,23 +1,52 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Container, Typography } from "@mui/material";
 import { registerUser } from "./api";
 
-
 const Register = () => {
+  const [email, setEmail] = useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert ] = useState("")
 
-  const handleRegister = () => {
-    registerUser(username, password)
+  const handleRegister = async () => {
+    if (email == '' || username == '' || password == '') {
+      setAlert("Please fill required data")
+      return
+    }
+
+    try {
+      const response = await registerUser(email, username, password)
+      console.log(response);
+      setAlert("Registered successfully")
+    } catch (error:any) {
+      setAlert(error)
+    }
   };
 
   return (
-    <div>
-      <h2>Register Form</h2>
+    <Container sx={{ 
+      backgroundColor: "white",
+      padding: "2rem",
+      borderRadius: "1rem"
+    }}>
+      <Typography variant="h4" sx={{
+        color: "black"
+      }}>Register Form</Typography>
       <form>
+        <TextField
+          label="email"
+          type="email"
+          value={email}
+          required
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
         <TextField
           label="username"
           type="username"
+          required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           fullWidth
@@ -26,6 +55,7 @@ const Register = () => {
         <TextField
           label="Password"
           type="password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
@@ -35,7 +65,8 @@ const Register = () => {
           Register
         </Button>
       </form>
-    </div>
+      {alert && <Typography sx={{ color: "red"}} >{alert}</Typography> }
+    </Container>
   );
 };
 
