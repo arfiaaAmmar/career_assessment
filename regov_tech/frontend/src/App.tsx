@@ -6,12 +6,6 @@ import UserProfile from "./pages/UserProfile";
 import Register from "./pages/Register";
 import { AuthContext } from "./context/AuthContext";
 
-export type UserType = {
-  username: string;
-  password: string;
-  email: string;
-};
-
 function App() {
   const { isLoggedIn } = useContext(AuthContext)
 
@@ -21,7 +15,7 @@ function App() {
         <Route
           path="/"
           element={
-            isLoggedIn ? (
+            isLoggedIn || localStorage.getItem('userSession') ? (
               <UserProfile />
             ) : (
               <Navigate to="/login" />
@@ -31,7 +25,7 @@ function App() {
         <Route
           path="/login"
           element={
-            isLoggedIn ? (
+            isLoggedIn || localStorage.getItem('userSession') ? (
               <Navigate to="/" replace />
             ) : (
               <Login />
