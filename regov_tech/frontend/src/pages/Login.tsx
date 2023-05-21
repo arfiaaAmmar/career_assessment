@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import { CssBaseline, Typography } from "@mui/material";
-import { loginUser } from "./api";
+import { loginUser } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {

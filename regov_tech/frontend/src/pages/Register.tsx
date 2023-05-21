@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
-import { registerUser } from "./api";
+import { registerUser } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
@@ -13,7 +13,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     if (email == '' || username == '' || password == '') {
-      setUser({email: email, username: username})
+      setUser({username: username})
       setAlert("Please fill required data")
       return
     }

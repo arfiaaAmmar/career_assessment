@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Avatar, Button, Container, Typography } from "@mui/material";
-import { getUser } from "./api";
+import { getUser } from "../api/api";
 
 const UserProfile = () => {
   const { user, setIsLoggedIn } = useContext(AuthContext);
