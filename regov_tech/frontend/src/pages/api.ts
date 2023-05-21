@@ -26,7 +26,11 @@ export const registerUser = async (
   }
 };
 
-export const loginUser = async (username: string, password: string, rememberMe: boolean) => {
+export const loginUser = async (
+  username: string,
+  password: string,
+  rememberMe: boolean
+) => {
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
       method: "POST",
@@ -36,7 +40,7 @@ export const loginUser = async (username: string, password: string, rememberMe: 
       body: JSON.stringify({ username, password }),
     });
 
-    const data = await response.json()
+    const data = await response.json();
 
     if (!response.ok) {
       const errorData: { message: string } = data;
@@ -44,7 +48,7 @@ export const loginUser = async (username: string, password: string, rememberMe: 
     }
 
     if (rememberMe) {
-      localStorage.setItem('userSession', JSON.stringify(data))
+      localStorage.setItem("userSession", JSON.stringify(data));
     }
 
     return data;
@@ -53,28 +57,28 @@ export const loginUser = async (username: string, password: string, rememberMe: 
   }
 };
 
-export const getUser = async (username:string): Promise<any> => {
+export const getUser = async (username: string | undefined): Promise<any> => {
   try {
     const response = await fetch(`${API_BASE_URL}/user/${username}`);
-    const data = await response.json()
+    const data = await response.json();
 
     if (!response.ok) {
-      const error = data.error || 'An error occured'
+      const error = data.error || "An error occured";
       throw new Error(error);
     }
 
-    return response.json();
+    return data;
   } catch (error: any) {
-    throw new Error('An error occurred');
+    throw new Error("An error occurred");
   }
-}
+};
 
 export const getSavedUserSession = (): any => {
-  const userSession = localStorage.getItem('userSession')
+  const userSession = localStorage.getItem("userSession");
 
-  if(userSession){
-    return JSON.parse(userSession)
+  if (userSession) {
+    return JSON.parse(userSession);
   }
 
-  return null
-}
+  return null;
+};

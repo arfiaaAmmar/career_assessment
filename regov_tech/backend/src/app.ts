@@ -111,7 +111,7 @@ app.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/user:username", async (req: Request, res: Response) => {
+app.get("/user/:username", async (req: Request, res: Response) => {
   const { username } = req.params;
 
   try {

@@ -6,18 +6,20 @@ import { getUser } from "./api";
 
 const UserProfile = () => {
   const { user, setIsLoggedIn } = useContext(AuthContext);
-  const [userData, setUserData] = useState<any>(null);
+  const [ data, setUserData] = useState<any>(null);
 
   useEffect(() => {
-    async () => {
+    const fetchUserData = async () => {
       try {
-        const data = await getUser("test123");
+        const data = await getUser(user?.username);
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-  }, []);
+
+    fetchUserData()
+  }, [user?.username]);
 
   return (
     <Container
@@ -41,12 +43,12 @@ const UserProfile = () => {
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Email: This will be dynamic (otw)
+        Email: {data?.email}
       </Typography>
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Username: This will be dynamic. (otw)
+        Username: {data?.username}
       </Typography>
       <Button sx={{ marginTop: "2rem" }} onClick={() => setIsLoggedIn(false)}>
         Logout

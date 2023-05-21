@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [error, setError] = useState("");
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setUser, setIsLoggedIn } = useContext(AuthContext);
 
   const handleLogin = async () => {
     if (username == "" || password == "") {
@@ -24,6 +24,7 @@ const Login = () => {
     }
     try {
       const response = await loginUser(username, password, rememberMe);
+      setUser({username: username})
       console.log(response);
       setIsLoggedIn(true);
     } catch (error: any) {
