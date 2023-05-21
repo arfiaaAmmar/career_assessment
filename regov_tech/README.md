@@ -21,3 +21,9 @@ The backend server exposes the following API endpoints:
 - Material-UI (MUI)
 - ExpressJS
 - MongoDB
+
+## Improvements & Updates
+These are probably some of the things that could be improved upon and updated.
+- Using JWT instead of localStorage for saving user session as it is safer and conventionally used. 
+- Adding an option to upload profile picture and save it to MongoDB. 
+- Reoptimising the structure of the code itself. Now it's just spaghetti code. 
