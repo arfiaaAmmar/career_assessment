@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Avatar, Button, Container, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Typography } from "@mui/material";
 import { getUser } from "../api/api";
 
 const UserProfile = () => {
@@ -45,15 +45,19 @@ const UserProfile = () => {
           marginTop: "2rem",
         }}
       />
+      <Box display={"flex"} marginTop={2} gap={0.5}>
+        <Button sx={{backgroundColor: "blue", color: "white"}}>Add Photo</Button>
+        <Button sx={{backgroundColor: "red", color: "white"}}>Remove Photo</Button>
+      </Box>
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Email: {data?.email}
+        Email: <Typography sx={{fontWeight: "normal"}} >{data?.email}</Typography>
       </Typography>
       <Typography
         sx={{ color: "black", marginTop: "1rem", fontWeight: "bold" }}
       >
-        Username: {data?.username}
+        Username: <Typography sx={{fontWeight: "normal"}} >{data?.username}</Typography>
       </Typography>
       <Button sx={{ marginTop: "2rem" }} onClick={handleLogout}>
         Logout

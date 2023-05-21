@@ -1,12 +1,14 @@
-import express, { Request, Response } from "express";
+ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import cors from "cors";
+import serverless from 'serverless-http'
 
 dotenv.config();
 
 const app = express();
+const router = express.Router()
 const port = 8888;
 
 const MONGODB_URI = process.env.MONGODB_URI;
