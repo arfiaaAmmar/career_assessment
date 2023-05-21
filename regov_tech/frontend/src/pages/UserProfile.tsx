@@ -21,6 +21,11 @@ const UserProfile = () => {
     fetchUserData()
   }, [user?.username]);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+    localStorage.removeItem('userSession')
+  }
+
   return (
     <Container
       sx={{
@@ -50,7 +55,7 @@ const UserProfile = () => {
       >
         Username: {data?.username}
       </Typography>
-      <Button sx={{ marginTop: "2rem" }} onClick={() => setIsLoggedIn(false)}>
+      <Button sx={{ marginTop: "2rem" }} onClick={handleLogout}>
         Logout
       </Button>
     </Container>
