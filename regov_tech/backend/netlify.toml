@@ -1,3 +1,6 @@
 [build]
-  command = "npm run build"
-  functions = "dist/functions"
+  command = "npm run build" # Or the command to build your TypeScript code
+  functions = "dist/functions" # The directory where your built serverless functions will be located
+
+[[plugins]]
+  package = "netlify-plugin-inline-functions-env"
