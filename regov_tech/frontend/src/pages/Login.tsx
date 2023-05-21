@@ -1,31 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
 import { loginUser } from "./api";
-// import { useAuth } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
-type LoginProps = {
-  onLogin: () => void;
-};
-
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setIsLoggedIn} = useContext(AuthContext)
 
   const handleLogin = async () => {
     try {
       const response = await loginUser(username, password);
       console.log(response);
-      onLogin()
+      setIsLoggedIn(true)
     } catch (error) {
-      setError((error as Error).message);
+      setError(response);
     }
   };
 
@@ -75,7 +72,7 @@ const Login = ({ onLogin }: LoginProps) => {
           <Link to="/register">Registration</Link>
         </Grid>
       </Grid>
-      {error && <p>{error}</p> }
+      {error && <Typography sx={{ color: "red"}} >{error}</Typography> }
     </div>
   );
 };

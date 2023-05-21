@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
 import Register from "./pages/Register";
+import { AuthContext } from "./context/AuthContext";
 
 export type UserType = {
   username: string;
@@ -12,7 +13,7 @@ export type UserType = {
 };
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { isLoggedIn } = useContext(AuthContext)
 
   return (
     <>
@@ -21,7 +22,7 @@ function App() {
           path="/"
           element={
             isLoggedIn ? (
-              <UserProfile onLogout={() => setIsLoggedIn(false)} />
+              <UserProfile />
             ) : (
               <Navigate to="/login" />
             )
@@ -33,7 +34,7 @@ function App() {
             isLoggedIn ? (
               <Navigate to="/" replace />
             ) : (
-              <Login onLogin={() => setIsLoggedIn(true)} />
+              <Login />
             )
           }
         />

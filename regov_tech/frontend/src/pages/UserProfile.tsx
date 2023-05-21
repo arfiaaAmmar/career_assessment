@@ -1,15 +1,23 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { Avatar, Button, Container, Typography } from "@mui/material";
 
-interface UserProfileProps {
-  onLogout: () => void
-}
-
-const UserProfile = ({onLogout}:UserProfileProps) => {  
+const UserProfile = () => {
+  const { user, setIsLoggedIn } = useContext(AuthContext);
 
   return (
-    <>
-      <div>UserProfile</div>
-      <button onClick={onLogout}>Logout</button>
-    </>
+    <Container
+      sx={{
+        backgroundColor: "white",
+        padding: "4rem",
+        borderRadius: "1rem",
+      }}
+      >
+      <Typography variant="h4" sx={{color: "black"}}>UserProfile</Typography>
+      <Avatar sx={{width: "6rem", height: "6rem", margin: "auto", marginTop: "2rem"}} />
+      <Typography sx={{color: "black", marginTop: "1rem", fontWeight: "bold"}}>{user?.username}</Typography>
+      <Button sx={{marginTop: "2rem"}} onClick={() => setIsLoggedIn(false)}>Logout</Button>
+    </Container>
   );
 };
 

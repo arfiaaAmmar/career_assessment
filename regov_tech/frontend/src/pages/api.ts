@@ -1,7 +1,7 @@
 const API_BASE_URL = "http://localhost:8888";
 
 export const registerUser = async (
-  name: string,
+  username: string,
   password: string
 ) => {
   try {
@@ -10,7 +10,7 @@ export const registerUser = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     if (!response.ok) {
@@ -24,14 +24,14 @@ export const registerUser = async (
   }
 };
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (username: string, password: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     if (!response.ok) {

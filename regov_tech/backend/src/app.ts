@@ -71,9 +71,15 @@ app.post("/register", async (req: Request, res: Response) => {
 app.post('/login', async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
+
+    //Check if email or password contain spaces
+    if (username.includes(' ') || password.includes(' ')) {
+      return res.status(400).json({ message : 'Email or password cannot contain spaces'})
+    }
     
     // Find user by username
     const user = await User.findOne({ username });
+    
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
     }
