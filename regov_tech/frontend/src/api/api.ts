@@ -29,7 +29,6 @@ export const registerUser = async (
 export const loginUser = async (
   username: string,
   password: string,
-  rememberMe: boolean
 ) => {
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
@@ -38,18 +37,16 @@ export const loginUser = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, password }),
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
-    if (!response.ok) {
+    if (!response.ok){
       const errorData: { message: string } = data;
       throw new Error(errorData.message);
     }
 
-    if (rememberMe) {
-      localStorage.setItem("userSession", JSON.stringify(data));
-    }
+    localStorage.setItem('token', data.token)
 
     return data;
   } catch (error) {
@@ -57,9 +54,16 @@ export const loginUser = async (
   }
 };
 
-export const getUser = async (username: string | undefined): Promise<any> => {
+export const getUser = async () => {
+  const token = localStorage.getItem('token')
+
   try {
-    const response = await fetch(`${API_BASE_URL}/user/${username}`);
+    const response = await fetch(`${API_BASE_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -71,14 +75,4 @@ export const getUser = async (username: string | undefined): Promise<any> => {
   } catch (error: any) {
     throw new Error("An error occurred");
   }
-};
-
-export const getSavedUserSession = (): any => {
-  const userSession = localStorage.getItem("userSession");
-
-  if (userSession) {
-    return JSON.parse(userSession);
-  }
-
-  return null;
 };

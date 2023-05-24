@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CssBaseline, Typography } from "@mui/material";
 import { loginUser } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
@@ -13,22 +13,22 @@ import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [error, setError] = useState("");
-  const { setUser, setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  
 
-  const handleLogin = async () => {
-    if (username == "" || password == "") {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault
+    if (username == "" || password == "" || username.includes(" ") || password.includes(" ")) {
       setError("Please enter username and password");
       return;
     }
-    try {
-      const response = await loginUser(username, password, rememberMe);
-      setUser({username: username})
-      console.log(response);
-      setIsLoggedIn(true);
+  try {
+      await loginUser(username, password);
+      navigate('/')
     } catch (error: any) {
-      console.error("Error logging in:", error);
+    console.error("Error logging in:", error);
       setError(error);
     }
   };
@@ -59,7 +59,7 @@ const Login = () => {
         onChange={(e: any) => setPassword(e.target.value)}
         autoComplete="current-password"
       />
-      <FormControlLabel
+      {/* <FormControlLabel
         control={
           <Checkbox
             value="remember"
@@ -69,7 +69,7 @@ const Login = () => {
           />
         }
         label="Remember me"
-      />
+      /> */}
       <Button
         type="submit"
         fullWidth

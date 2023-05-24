@@ -1,29 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect, useState, useContext } from "react";
 import { Avatar, Box, Button, Container, Typography } from "@mui/material";
 import { getUser } from "../api/api";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const UserProfile = () => {
-  const { user, setIsLoggedIn } = useContext(AuthContext);
-  const [ data, setUserData] = useState<any>(null);
+  const [ data, setData] = useState<any>(null);
+  const { setIsLoggedIn } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const data = await getUser(user?.username);
-        setUserData(data);
+        const data = await getUser();
+        setData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
     fetchUserData()
-  }, [user?.username]);
+  }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem('token')
     setIsLoggedIn(false)
-    localStorage.removeItem('userSession')
+    navigate('/login')
   }
 
   return (
